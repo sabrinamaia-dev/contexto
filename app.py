@@ -1,0 +1,1 @@
+print("Contexto iniciado com sucesso.")
