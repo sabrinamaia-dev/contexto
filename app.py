@@ -1,9 +1,15 @@
-noticia = {
-    "titulo": "Inteligência artificial transforma o mercado de trabalho",
-    "fonte": "Exemplo News",
-    "categoria": "Tecnologia"
-}
+noticias = [
+    {
+        "titulo": "IA transforma mercado de trabalho",
+        "fonte": "Exemplo News",
+        "categoria": "Tecnologia"
+    },
+    {
+     "titulo": "Banco Central mantém taxa de juros",
+     "fonte": "Exemplo Economia",
+     "categoria": "Economia"
+    }
+]
 
-print("Título:", noticia["titulo"])
-print("Fonte:", noticia["fonte"])
-print("Categoria:", noticia["categoria"])
+for noticia in noticias:
+    print(noticia["titulo"])
