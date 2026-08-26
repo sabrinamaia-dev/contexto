@@ -12,4 +12,7 @@ noticias = [
 ]
 
 for noticia in noticias:
-    print(noticia["titulo"])
+    print("Título:", noticia["titulo"])
+    print("Fonte:", noticia["fonte"])
+    print("Categoria:", noticia["categoria"])
+    print()
