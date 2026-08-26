@@ -10,9 +10,10 @@ noticias = [
      "categoria": "Economia"
     }
 ]
-
+categoria_escolhida = input("Digite a categoria desejada: ")
 for noticia in noticias:
-    print("Título:", noticia["titulo"])
-    print("Fonte:", noticia["fonte"])
-    print("Categoria:", noticia["categoria"])
-    print()
+    if noticia["categoria"].lower() == categoria_escolhida.lower():
+        print("Título:", noticia["titulo"])
+        print("Fonte:", noticia["fonte"])
+        print("Categoria:", noticia["categoria"])
+        print()
