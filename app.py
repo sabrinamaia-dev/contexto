@@ -1,32 +1,30 @@
-noticias = [
-    {
-        "titulo": "IA transforma mercado de trabalho",
-        "fonte": "Exemplo News",
-        "categoria": "Tecnologia"
-    },
-    {
-     "titulo": "Banco Central mantém taxa de juros",
-     "fonte": "Exemplo Economia",
-     "categoria": "Economia"
-    },
-    {
-        "titulo": "Nova ferramenta de IA é lançada",
-        "fonte": "Portal Tech",
-        "categoria": "Tecnologia"
-    }
-]
-categoria_escolhida = input("Digite a categoria desejada: ")
-noticia_encontrada = False
-quantidade_encontrada = 0
-for noticia in noticias:
-    if noticia["categoria"].lower() == categoria_escolhida.lower():
-        noticia_encontrada = True
-        quantidade_encontrada = quantidade_encontrada + 1
-        print("Título:", noticia["titulo"])
-        print("Fonte:", noticia["fonte"])
-        print("Categoria:", noticia["categoria"])
-        print()
-if not noticia_encontrada:
-    print("Nenhuma notícia encontrada para a categoria selecionada.")
-else :
-    print("Total de notícias encontradas:", quantidade_encontrada)
+import os
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.getenv("GNEWS_API_KEY")
+
+
+url = "https://gnews.io/api/v4/top-headlines"
+
+parametros = {
+    "category": "technology",
+    "lang": "pt",
+    "country": "br",
+    "max": 5,
+    "apikey": api_key
+}
+
+resposta = requests.get(url, params=parametros, timeout=10)
+dados = resposta.json()
+noticias_reais = dados["articles"]
+
+print("Notícias recebidas:", len(noticias_reais))
+
+for noticia_real in noticias_reais:
+    print("Título:", noticia_real["title"])
+    print("Fonte:", noticia_real["source"]["name"])
+    print("Link:", noticia_real["url"])
+    print()
