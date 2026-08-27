@@ -23,8 +23,10 @@ noticias_reais = dados["articles"]
 
 print("Notícias recebidas:", len(noticias_reais))
 
-for noticia_real in noticias_reais:
+for numero, noticia_real in enumerate(noticias_reais, start=1):
+    print("Notícia", numero)
     print("Título:", noticia_real["title"])
     print("Fonte:", noticia_real["source"]["name"])
+    print("Descrição:", noticia_real.get("description") or "Sem descrição disponível")
     print("Link:", noticia_real["url"])
-    print()
+    print("-" * 50)
