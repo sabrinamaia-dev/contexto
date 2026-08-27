@@ -1,11 +1,14 @@
 import os
 import requests
 from dotenv import load_dotenv
+from datetime import datetime, timedelta, timezone
 
 load_dotenv()
 
 api_key = os.getenv("GNEWS_API_KEY")
-
+inicio_periodo = datetime.now(timezone.utc) - timedelta(hours=24)
+inicio_periodo = inicio_periodo.isoformat(timespec="seconds").replace("+00:00", "Z")
+print("Início do período:", inicio_periodo)
 
 url = "https://gnews.io/api/v4/top-headlines"
 
@@ -13,14 +16,17 @@ parametros = {
     "category": "technology",
     "lang": "pt",
     "country": "br",
+    "from": inicio_periodo,
     "max": 5,
-    "apikey": api_key
+}
+cabeçalhos = {
+    "X-Api-Key": api_key
 }
 
-resposta = requests.get(url, params=parametros, timeout=10)
+resposta = requests.get(url, params=parametros, headers=cabeçalhos, timeout=10)
+resposta.raise_for_status()
 dados = resposta.json()
 noticias_reais = dados["articles"]
-
 print("Notícias recebidas:", len(noticias_reais))
 
 for numero, noticia_real in enumerate(noticias_reais, start=1):
