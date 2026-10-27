@@ -1,7 +1,9 @@
 import os
 import requests
+import csv
 from dotenv import load_dotenv
 from datetime import datetime, timedelta, timezone
+
 
 load_dotenv()
 
@@ -27,6 +29,10 @@ resposta = requests.get(url, params=parametros, headers=cabeçalhos, timeout=10)
 resposta.raise_for_status()
 dados = resposta.json()
 noticias_reais = dados["articles"]
+print(noticias_reais[0].keys())
+print(noticias_reais[0]["publishedAt"])
+print(noticias_reais[0]["source"])
+print(noticias_reais[0]["lang"])
 print("Notícias recebidas:", len(noticias_reais))
 
 for numero, noticia_real in enumerate(noticias_reais, start=1):
@@ -36,3 +42,15 @@ for numero, noticia_real in enumerate(noticias_reais, start=1):
     print("Descrição:", noticia_real.get("description") or "Sem descrição disponível")
     print("Link:", noticia_real["url"])
     print("-" * 50)
+
+with open("noticias.csv", "w", newline="", encoding="utf-8") as arquivo:
+    escritor = csv.writer(arquivo)
+    escritor.writerow(["titulo", "fonte", "data_publicacao", "url"])
+
+    for noticia in noticias_reais:
+        escritor.writerow([
+            noticia["title"],
+            noticia["source"]["name"],
+            noticia["publishedAt"],
+            noticia["url"]
+        ])
