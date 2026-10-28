@@ -141,48 +141,44 @@
                     <div class="lista-noticias">
                         {% for noticia in noticias %}
                             <article class="noticia">
-                                <div class="noticia-imagem">
-                                    {% if noticia.get("image") %}
-                                        <img
-                                            src="{{ noticia['image'] }}"
-                                            alt=""
-                                            loading="lazy"
-                                            referrerpolicy="no-referrer"
-                                        >
-                                    {% else %}
-                                        <span aria-hidden="true">í.</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="noticia-corpo">
-                                    <div class="noticia-topo">
-                                        <p class="noticia-meta">
-                                            {{ noticia["source"]["name"] }}
-                                            {% if noticia.get("publishedAt") %}
-                                                <span aria-hidden="true">·</span>
-                                                <time datetime="{{ noticia['publishedAt'] }}">
-                                                    {{ noticia["publishedAt"][8:10] }}.{{ noticia["publishedAt"][5:7] }}.{{ noticia["publishedAt"][:4] }}
-                                                </time>
-                                            {% endif %}
-                                        </p>
-                                        <p class="noticia-numero" aria-hidden="true">{{ "%02d"|format(loop.index) }}</p>
+                                <a
+                                    class="noticia-link"
+                                    href="{{ noticia['url'] }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Ler notícia: {{ noticia['title'] }}"
+                                >
+                                    <div class="noticia-imagem">
+                                        {% if noticia.get("image") %}
+                                            <img
+                                                src="{{ noticia['image'] }}"
+                                                alt=""
+                                                loading="lazy"
+                                                referrerpolicy="no-referrer"
+                                            >
+                                        {% else %}
+                                            <span aria-hidden="true">í.</span>
+                                        {% endif %}
                                     </div>
 
-                                    <h3>{{ noticia["title"] }}</h3>
-                                    <p class="noticia-descricao">
-                                        {{ noticia.get("description") or "Sem descrição disponível." }}
-                                    </p>
+                                    <div class="noticia-corpo">
+                                        <p class="noticia-meta">
+                                            {{ noticia["source"]["name"] }}
+                                        </p>
+                                        <h3>{{ noticia["title"] }}</h3>
+                                        {% if noticia.get("publishedAt") %}
+                                            <time class="noticia-data" datetime="{{ noticia['publishedAt'] }}">
+                                                {{ noticia["publishedAt"][8:10] }}.{{ noticia["publishedAt"][5:7] }}.{{ noticia["publishedAt"][:4] }}
+                                            </time>
+                                        {% endif %}
+                                    </div>
 
-                                    <a
-                                        class="noticia-link"
-                                        href="{{ noticia['url'] }}"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label="Ler notícia: {{ noticia['title'] }}"
-                                    >
-                                        Ler matéria <span aria-hidden="true">↗</span>
-                                    </a>
-                                </div>
+                                    <span class="noticia-acao" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false">
+                                            <path d="M6.5 4.5h11v15l-5.5-3.4-5.5 3.4z"/>
+                                        </svg>
+                                    </span>
+                                </a>
                             </article>
                         {% endfor %}
                     </div>

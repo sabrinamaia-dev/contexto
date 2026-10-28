@@ -62,7 +62,7 @@ O repositório inclui um arquivo `render.yaml`, que deixa o índice. preparado p
 
 1. Crie uma conta no Render e conecte sua conta do GitHub.
 2. No painel, escolha **New + > Blueprint**.
-3. Selecione o repositório `sabrinamaia-dev/contexto`.
+3. Selecione o repositório `sabrinamaia-dev/indice`.
 4. Quando o Render solicitar, informe `GNEWS_API_KEY` no campo secreto.
 5. Confirme a criação do serviço e aguarde o primeiro deploy.
 
