@@ -1,14 +1,14 @@
-# Contexto
+# índice.
 
-### Informação relevante, organizada e no momento certo.
+### O mundo é grande. Comece por aqui.
 
-O **Contexto** transforma notícias recentes em um briefing simples e personalizado. A pessoa escolhe um tema, a aplicação consulta a GNews, apresenta as matérias em uma interface editorial e registra as notícias novas em um arquivo CSV local.
+O **índice.** transforma notícias recentes em um briefing simples e personalizado. A pessoa escolhe um tema, a aplicação consulta a GNews, apresenta as matérias em cards editoriais e registra as notícias novas em um arquivo CSV local.
 
 Este também é um projeto de aprendizado prático, construído durante minha transição para a área de tecnologia e dados.
 
 ## O que já funciona
 
-- Interface web responsiva feita com Flask, HTML e CSS.
+- Interface web responsiva com a identidade visual do **índice.**, feita com Flask, HTML e CSS.
 - Briefings de Tecnologia, Inteligência Artificial, Negócios, Mundo e Moda.
 - Busca de notícias em português publicadas nas últimas 24 horas.
 - Registro local das notícias em `noticias.csv`, sem repetir links já salvos.
@@ -58,7 +58,7 @@ Depois, abra [http://127.0.0.1:5050](http://127.0.0.1:5050) no navegador.
 
 ## Como publicar na internet
 
-O repositório inclui um arquivo `render.yaml`, que deixa o projeto preparado para o Render:
+O repositório inclui um arquivo `render.yaml`, que deixa o índice. preparado para o Render:
 
 1. Crie uma conta no Render e conecte sua conta do GitHub.
 2. No painel, escolha **New + > Blueprint**.
