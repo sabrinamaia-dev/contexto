@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="Contexto transforma os assuntos que importam para você em um briefing diário, claro e direto."
+    >
+    <title>Contexto | Seu briefing diário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topo">
+        <a class="marca" href="{{ url_for('pagina_inicial') }}" aria-label="Contexto — página inicial">
+            contexto<span>.</span>
+        </a>
+
+        <div class="topo-meta">
+            <span>Briefing diário</span>
+            <time datetime="{{ data_iso }}">{{ data_atual }}</time>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="titulo-principal">
+            <div class="hero-conteudo">
+                <p class="sobretitulo">Curadoria diária · do seu jeito</p>
+                <h1 id="titulo-principal">
+                    Informação demais.<br>
+                    <em>Contexto</em> de menos.
+                </h1>
+                <p class="hero-texto">
+                    Um briefing para acompanhar o que importa sem se perder no excesso.
+                    Você escolhe o assunto; o Contexto organiza o começo da sua leitura.
+                </p>
+            </div>
+
+            <aside class="nota-editorial" aria-label="Sobre o briefing">
+                <p class="nota-rotulo">Edição diária</p>
+                <p class="nota-destaque">24h</p>
+                <p>Notícias recentes, reunidas em uma leitura breve.</p>
+            </aside>
+        </section>
+
+        <section class="seletor" aria-labelledby="titulo-seletor">
+            <div class="seletor-introducao">
+                <p class="numero-secao">01 — Personalize</p>
+                <h2 id="titulo-seletor">Seu briefing começa por aqui.</h2>
+                <p>Escolha um tema por vez. Você pode voltar e gerar outro quando quiser.</p>
+            </div>
+
+            <form method="post" action="{{ url_for('pagina_inicial') }}#briefing">
+                <fieldset>
+                    <legend>O que você quer acompanhar hoje?</legend>
+
+                    <div class="categorias">
+                        <label class="categoria">
+                            <input
+                                type="radio"
+                                name="interesse"
+                                value="technology"
+                                {% if interesse_selecionado == 'technology' %}checked{% endif %}
+                            >
+                            <span>Tecnologia</span>
+                        </label>
+
+                        <label class="categoria">
+                            <input
+                                type="radio"
+                                name="interesse"
+                                value="artificial_intelligence"
+                                {% if interesse_selecionado == 'artificial_intelligence' %}checked{% endif %}
+                            >
+                            <span>Inteligência Artificial</span>
+                        </label>
+
+                        <label class="categoria">
+                            <input
+                                type="radio"
+                                name="interesse"
+                                value="business"
+                                {% if interesse_selecionado == 'business' %}checked{% endif %}
+                            >
+                            <span>Negócios</span>
+                        </label>
+
+                        <label class="categoria">
+                            <input
+                                type="radio"
+                                name="interesse"
+                                value="world"
+                                {% if interesse_selecionado == 'world' %}checked{% endif %}
+                            >
+                            <span>Mundo</span>
+                        </label>
+
+                        <label class="categoria">
+                            <input
+                                type="radio"
+                                name="interesse"
+                                value="fashion"
+                                {% if interesse_selecionado == 'fashion' %}checked{% endif %}
+                            >
+                            <span>Moda</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button class="botao-gerar" type="submit">
+                    <span>Gerar meu briefing</span>
+                    <span aria-hidden="true">↗</span>
+                </button>
+            </form>
+        </section>
+
+        {% if busca_realizada %}
+            <section class="briefing" id="briefing" aria-live="polite">
+                {% if erro %}
+                    <div class="mensagem-estado mensagem-erro" role="alert">
+                        <p class="numero-secao">Não foi dessa vez</p>
+                        <p>{{ erro }}</p>
+                    </div>
+                {% elif noticias %}
+                    <div class="cabecalho-briefing">
+                        <div>
+                            <p class="numero-secao">02 — Briefing gerado</p>
+                            <h2>{{ titulo_briefing }}</h2>
+                        </div>
+                        <p class="contagem">
+                            {{ noticias|length }}
+                            {% if noticias|length == 1 %}matéria{% else %}matérias{% endif %}
+                            nas últimas 24h
+                        </p>
+                    </div>
+
+                    <div class="lista-noticias">
+                        {% for noticia in noticias %}
+                            <article class="noticia">
+                                <p class="noticia-numero" aria-hidden="true">{{ "%02d"|format(loop.index) }}</p>
+
+                                <div class="noticia-conteudo">
+                                    <p class="noticia-meta">
+                                        {{ noticia["source"]["name"] }}
+                                        {% if noticia.get("publishedAt") %}
+                                            <span aria-hidden="true">—</span>
+                                            <time datetime="{{ noticia['publishedAt'] }}">
+                                                {{ noticia["publishedAt"][8:10] }}.{{ noticia["publishedAt"][5:7] }}.{{ noticia["publishedAt"][:4] }}
+                                            </time>
+                                        {% endif %}
+                                    </p>
+                                    <h3>{{ noticia["title"] }}</h3>
+                                    <p class="noticia-descricao">
+                                        {{ noticia.get("description") or "Sem descrição disponível." }}
+                                    </p>
+                                </div>
+
+                                <a
+                                    class="noticia-link"
+                                    href="{{ noticia['url'] }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Ler notícia: {{ noticia['title'] }}"
+                                >
+                                    Ler matéria <span aria-hidden="true">↗</span>
+                                </a>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="mensagem-estado mensagem-vazia">
+                        <p class="numero-secao">Briefing gerado</p>
+                        <p>Nenhuma notícia foi encontrada nas últimas 24 horas.</p>
+                    </div>
+                {% endif %}
+            </section>
+        {% endif %}
+    </main>
+
+    <footer class="rodape">
+        <p class="marca-rodape">contexto<span>.</span></p>
+        <p>Menos ruído. Mais clareza para começar.</p>
+        <p>Projeto em construção · {{ data_atual }}</p>
+    </footer>
+</body>
+</html>

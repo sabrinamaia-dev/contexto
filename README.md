@@ -1,45 +1,87 @@
 # Contexto
+
 ### Informação relevante, organizada e no momento certo.
 
-**Python | Automação | Processamento de informações**
+O **Contexto** transforma notícias recentes em um briefing simples e personalizado. A pessoa escolhe um tema, a aplicação consulta a GNews, apresenta as matérias em uma interface editorial e registra as notícias novas em um arquivo CSV local.
 
-## O problema
+Este também é um projeto de aprendizado prático, construído durante minha transição para a área de tecnologia e dados.
 
-Vivemos cercados por informações, mas acompanhar diferentes fontes de notícias, identificar assuntos relevantes e organizar tudo isso diariamente exige tempo.
+## O que já funciona
 
-Como transformar esse volume de informações em algo mais acessível, estruturado e útil?
+- Interface web responsiva feita com Flask, HTML e CSS.
+- Briefings de Tecnologia, Inteligência Artificial, Negócios, Mundo e Moda.
+- Busca de notícias em português publicadas nas últimas 24 horas.
+- Registro local das notícias em `noticias.csv`, sem repetir links já salvos.
+- Proteção da chave da GNews por variável de ambiente.
 
-Foi dessa pergunta que surgiu o **Contexto**.
+## Tecnologias
 
-## A solução
+- Python e Flask
+- HTML e CSS
+- API GNews
+- Git e GitHub
+- Gunicorn para execução em ambiente de hospedagem
 
-O Contexto é um projeto desenvolvido em Python com o objetivo de automatizar a coleta, o processamento e a organização de notícias, reunindo informações relevantes em um briefing diário.
+## Como abrir no computador
 
-A proposta é reduzir o trabalho manual de buscar informações em diferentes fontes e facilitar o acompanhamento dos principais acontecimentos.
+No Terminal, entre na pasta do projeto:
 
-## Tecnologias e ferramentas
+```bash
+cd /Users/sabrinamaia/contexto
+```
 
-- **Python:** desenvolvimento da aplicação e lógica de programação.
-- **Git e GitHub:** versionamento e documentação.
-- **VS Code:** ambiente de desenvolvimento.
+Ative o ambiente virtual:
 
-## Status do projeto
+```bash
+source .venv/bin/activate
+```
 
-**Em desenvolvimento.**
+Instale ou atualize as dependências:
 
-O projeto também funciona como um ambiente de aprendizado prático, no qual aplico conceitos de programação e evoluo gradualmente a solução.
+```bash
+pip install -r requirements.txt
+```
+
+Na raiz do projeto, mantenha um arquivo `.env` com a sua chave:
+
+```text
+GNEWS_API_KEY=sua_chave_aqui
+```
+
+Inicie a aplicação:
+
+```bash
+python app.py
+```
+
+Depois, abra [http://127.0.0.1:5050](http://127.0.0.1:5050) no navegador.
+
+## Como publicar na internet
+
+O repositório inclui um arquivo `render.yaml`, que deixa o projeto preparado para o Render:
+
+1. Crie uma conta no Render e conecte sua conta do GitHub.
+2. No painel, escolha **New + > Blueprint**.
+3. Selecione o repositório `sabrinamaia-dev/contexto`.
+4. Quando o Render solicitar, informe `GNEWS_API_KEY` no campo secreto.
+5. Confirme a criação do serviço e aguarde o primeiro deploy.
+
+Ao final, o Render gera um endereço público terminado em `.onrender.com`. A chave não fica salva no GitHub.
+
+> No plano gratuito, o serviço pode pausar depois de um período sem visitas. A primeira abertura seguinte pode demorar um pouco. O arquivo `noticias.csv` da hospedagem também é temporário; para manter um histórico permanente na internet, o próximo passo será trocar o CSV por um banco de dados.
+
+## Arquivos principais
+
+- `app.py`: busca, filtra e salva as notícias; também entrega a página Flask.
+- `templates/index.html`: estrutura e conteúdo da interface.
+- `static/style.css`: identidade visual e comportamento responsivo.
+- `render.yaml`: configuração segura para publicar no Render.
+- `noticias.csv`: histórico local, ignorado pelo Git.
+- `.env`: chave privada da GNews, ignorada pelo Git.
 
 ## Próximos passos
 
-- Evoluir os mecanismos de coleta de notícias.
-- Estruturar o processamento e a organização das informações.
-- Aprimorar a apresentação do briefing diário.
-- Explorar possibilidades de análise e classificação de notícias.
-
-## Sobre o desenvolvimento
-
-O Contexto faz parte da minha transição para a área de tecnologia e dados.
-
-Meu interesse vai além de escrever código: quero compreender como a tecnologia pode organizar informações, resolver problemas reais e apoiar decisões.
-
-Este repositório documenta essa construção, incluindo aprendizados, experimentações e melhorias ao longo do desenvolvimento.
+- Testar a publicação com um link público.
+- Substituir o CSV por um banco de dados quando o histórico precisar ser permanente.
+- Refinar os filtros de cada categoria.
+- Acrescentar novas formas de personalização do briefing.
