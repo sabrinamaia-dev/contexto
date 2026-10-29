@@ -44,7 +44,6 @@ input {
     align-items: center;
     background: var(--primaria);
     border-bottom: 1px solid rgba(246, 245, 241, 0.12);
-    border-top: 3px solid var(--acento);
     color: var(--superficie);
     display: flex;
     justify-content: space-between;
