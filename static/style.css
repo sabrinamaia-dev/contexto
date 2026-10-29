@@ -42,8 +42,10 @@ input {
 
 .topo {
     align-items: center;
-    background: var(--superficie);
-    border-bottom: 1px solid var(--linha-escura);
+    background: var(--primaria);
+    border-bottom: 1px solid rgba(246, 245, 241, 0.12);
+    border-top: 3px solid var(--acento);
+    color: var(--superficie);
     display: flex;
     justify-content: space-between;
     padding: 22px clamp(24px, 5vw, 76px);
@@ -65,6 +67,10 @@ input {
     color: var(--secundaria);
 }
 
+.topo .marca span {
+    color: #a9b8a4;
+}
+
 .topo-meta {
     align-items: center;
     display: flex;
@@ -76,7 +82,7 @@ input {
 }
 
 .topo-meta time {
-    border-left: 1px solid var(--borda);
+    border-left: 1px solid rgba(246, 245, 241, 0.28);
     padding-left: 24px;
 }
 
@@ -86,10 +92,10 @@ input {
     border-bottom: 1px solid var(--linha-escura);
     color: var(--primaria);
     display: grid;
-    gap: clamp(64px, 9vw, 145px);
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
-    min-height: 650px;
-    padding: clamp(86px, 9vw, 136px) clamp(24px, 6vw, 92px) clamp(76px, 8vw, 116px);
+    gap: clamp(28px, 4vw, 70px);
+    grid-template-columns: minmax(350px, 0.9fr) minmax(430px, 1.15fr) minmax(165px, 0.42fr);
+    min-height: 540px;
+    padding: clamp(60px, 7vw, 100px) clamp(24px, 5vw, 76px) clamp(58px, 7vw, 94px);
 }
 
 .hero-conteudo {
@@ -113,7 +119,7 @@ input {
 
 .hero h1 {
     font-family: var(--serifada);
-    font-size: clamp(58px, 8vw, 124px);
+    font-size: clamp(54px, 5vw, 78px);
     font-weight: 500;
     letter-spacing: -0.05em;
     line-height: 0.94;
@@ -125,8 +131,8 @@ input {
     color: var(--texto-suave);
     font-size: clamp(16px, 1.35vw, 19px);
     line-height: 1.65;
-    margin: 38px 0 0;
-    max-width: 600px;
+    margin: 28px 0 0;
+    max-width: 500px;
 }
 
 .hero-atalho {
@@ -136,7 +142,7 @@ input {
     font-size: 13px;
     font-weight: 600;
     justify-content: space-between;
-    margin-top: 46px;
+    margin-top: 34px;
     max-width: 230px;
     padding-bottom: 14px;
     text-decoration: none;
@@ -145,6 +151,59 @@ input {
 .hero-atalho span {
     color: var(--acento);
     font-size: 20px;
+}
+
+.mapa-mundo {
+    align-self: center;
+    min-width: 0;
+    position: relative;
+}
+
+.mapa-mundo > img {
+    display: block;
+    opacity: 0.76;
+    width: 100%;
+}
+
+.cidade {
+    align-items: center;
+    color: var(--primaria);
+    display: flex;
+    font-size: 10px;
+    font-weight: 600;
+    gap: 6px;
+    line-height: 1;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.cidade i {
+    background: #b9675d;
+    border: 2px solid var(--superficie);
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(185, 103, 93, 0.28);
+    height: 9px;
+    width: 9px;
+}
+
+.cidade-nova-york {
+    left: 18%;
+    top: 34%;
+}
+
+.cidade-londres {
+    left: 44%;
+    top: 23%;
+}
+
+.cidade-pequim {
+    left: 76%;
+    top: 34%;
+}
+
+.cidade-sao-paulo {
+    left: 29%;
+    top: 73%;
 }
 
 .nota-editorial {
@@ -476,6 +535,27 @@ legend {
     margin: 0;
 }
 
+@media (max-width: 1200px) {
+    .hero {
+        grid-template-columns: minmax(330px, 0.9fr) minmax(400px, 1.1fr);
+    }
+
+    .nota-editorial {
+        border-left: 0;
+        border-top: 1px solid var(--borda);
+        display: grid;
+        gap: 20px;
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr auto 1fr;
+        padding: 24px 0 0;
+    }
+
+    .nota-editorial .nota-rotulo,
+    .nota-editorial .nota-destaque {
+        margin: 0;
+    }
+}
+
 @media (max-width: 1100px) {
     .lista-noticias {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -489,17 +569,14 @@ legend {
     }
 
     .nota-editorial {
-        border-left: 0;
-        border-top: 1px solid var(--borda);
-        display: grid;
-        gap: 20px;
+        grid-column: auto;
         grid-template-columns: 1fr auto 1fr;
-        padding: 24px 0 0;
     }
 
-    .nota-editorial .nota-rotulo,
-    .nota-editorial .nota-destaque {
-        margin: 0;
+    .mapa-mundo {
+        margin: 0 auto;
+        max-width: 720px;
+        width: 100%;
     }
 
     .seletor {
@@ -550,6 +627,10 @@ legend {
 
     .hero h1 {
         font-size: clamp(48px, 15vw, 68px);
+    }
+
+    .cidade {
+        font-size: 9px;
     }
 
     .nota-editorial {
